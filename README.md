@@ -62,3 +62,25 @@ git push -u origin main
 - Состояние: React Context + useReducer, сохранение в localStorage
 
 Приложение можно встроить в VK Mini App или Telegram Mini App, обернув в их SDK.
+
+## Telegram Mini App (только картинка)
+
+Страница **только с картинкой** питомца (без яйца и полного интерфейса) для открытия из бота:
+
+- Файл: `public/telegram-mini-app.html`. В нём можно заменить `src` у `#pet-image` на свою картинку (например `/pet.png`).
+- После деплоя на GitHub Pages или другой хостинг получится URL вида:  
+  `https://YOUR_USERNAME.github.io/tama/telegram-mini-app.html`
+
+**Привязка бота к Mini App:**
+
+**Вариант А — автоматически на GitHub:**  
+В репозитории: **Settings → Secrets and variables → Actions** → **New repository secret** → имя `TELEGRAM_BOT_TOKEN`, значение — токен бота из @BotFather. При каждом пуше в `main` сайт деплоится на GitHub Pages и у бота выставляется кнопка меню «Открыть» на твой Mini App.
+
+**Вариант Б — вручную (один раз):**
+   ```bash
+   set TELEGRAM_BOT_TOKEN=твой_токен
+   set MINI_APP_URL=https://YOUR_USERNAME.github.io/tama/telegram-mini-app.html
+   node scripts/set-telegram-menu.js
+   ```
+
+В чате с ботом появится кнопка меню «Открыть» — она откроет Mini App с картинкой.
