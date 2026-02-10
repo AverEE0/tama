@@ -31,21 +31,56 @@
       height: 100%;
       object-fit: contain;
     }
+    .buttons {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      padding: 16px env(safe-area-inset-right) calc(16px + env(safe-area-inset-bottom)) env(safe-area-inset-left);
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #ff8fab;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(255, 143, 171, 0.4);
+    }
+    .btn:active { opacity: 0.9; }
+    .btn-outline {
+      background: transparent;
+      color: #e85d8a;
+      border: 2px solid #ff8fab;
+    }
   </style>
 </head>
 <body>
   <div class="picture-wrap">
-    <!-- Замени src на свою картинку питомца (URL или путь, например /pet.png) -->
     <img src="./favicon.svg" alt="Питомец" id="pet-image" />
+  </div>
+  <div class="buttons">
+    <button type="button" class="btn" id="btn-close">Закрыть</button>
+    <button type="button" class="btn btn-outline" id="btn-open">Открыть в браузере</button>
   </div>
   <script>
     (function() {
-      if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-        var tg = Telegram.WebApp;
+      var tg = typeof Telegram !== 'undefined' && Telegram.WebApp ? Telegram.WebApp : null;
+      if (tg) {
         tg.ready();
         tg.expand();
-        tg.enableClosingConfirmation();
       }
+      document.getElementById('btn-close').onclick = function() {
+        if (tg && tg.close) tg.close(); else window.close();
+      };
+      document.getElementById('btn-open').onclick = function() {
+        if (tg && tg.openLink) tg.openLink(window.location.href); else window.open(window.location.href, '_blank');
+      };
     })();
   </script>
 </body>

@@ -74,8 +74,8 @@ git push -u origin main
 **Привязка бота к Mini App:**
 
 **Вариант А — автоматически на GitHub:**  
-В репозитории: **Settings → Secrets and variables → Actions** → создай секрет `TELEGRAM_BOT_TOKEN` (токен из @BotFather).  
-Чтобы в Mini App открывался **Tamaweb** (полная игра), создай ещё секрет `MINI_APP_URL` со значением `https://averee0.github.io/tamaweb/` (или твой URL Tamaweb). Без `MINI_APP_URL` кнопка будет открывать страницу «только картинка» из этого репо.
+В репозитории: **Settings → Secrets and variables → Actions** → создай только секрет `TELEGRAM_BOT_TOKEN` (токен из @BotFather).  
+Кнопка бота откроет страницу **только картинка + кнопки** (без яйца, без тяжёлой загрузки). Секрет `MINI_APP_URL` не добавляй — иначе откроется Tamaweb и в Mini App может быть бесконечная загрузка.
 
 **Вариант Б — вручную (один раз):**
    ```bash
