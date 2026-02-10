@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePet } from '../store/PetContext';
 import { getRandom, moodReplicas, actionReplicas } from '../data/replicas';
 import type { PetStatus, Mood } from '../types';
@@ -23,13 +23,16 @@ const moodLabels: Record<Mood, string> = {
 export function Home() {
   const { state, setReplica, setLastAction } = usePet();
   const { stats, currentReplica, lastAction } = state;
+  const [petReaction, setPetReaction] = useState<'feed' | 'toilet' | 'walk' | null>(null);
 
   useEffect(() => {
     if (lastAction && actionReplicas[lastAction]) {
       setReplica(getRandom(actionReplicas[lastAction]));
-      setLastAction(null);
-      const t = setTimeout(() => setReplica(null), 3000);
-      return () => clearTimeout(t);
+      setPetReaction(lastAction);
+      const t1 = setTimeout(() => setPetReaction(null), 1500);
+      const t2 = setTimeout(() => setLastAction(null), 100);
+      const t3 = setTimeout(() => setReplica(null), 3000);
+      return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
     }
   }, [lastAction, setReplica, setLastAction]);
 
@@ -91,7 +94,11 @@ export function Home() {
 
       {/* Питомец + реплика (общение) */}
       <section className="pet-area">
-        <div className="pet-avatar">🐣</div>
+        <div
+          className={`pet-avatar pet-mood-${stats.mood}${petReaction ? ` pet-react-${petReaction}` : ''}`}
+        >
+          🐣
+        </div>
         <div className="pet-replica">
           {currentReplica || '...'}
         </div>

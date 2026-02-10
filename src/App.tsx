@@ -36,7 +36,7 @@ function Router() {
 
   return (
     <>
-      <main>
+      <main className="page-transition-enter" key={current.path}>
         <Panel />
       </main>
       <nav className="nav-bottom">
