@@ -28,7 +28,7 @@ export function Home() {
   useEffect(() => {
     if (lastAction && actionReplicas[lastAction]) {
       setReplica(getRandom(actionReplicas[lastAction]));
-      setPetReaction(lastAction);
+      setPetReaction(lastAction as 'feed' | 'toilet' | 'walk');
       const t1 = setTimeout(() => setPetReaction(null), 1500);
       const t2 = setTimeout(() => setLastAction(null), 100);
       const t3 = setTimeout(() => setReplica(null), 3000);
