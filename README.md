@@ -33,6 +33,28 @@ npm run dev
 
 Сборка для продакшена: `npm run build`.
 
+## Загрузка на GitHub и запуск (GitHub Pages)
+
+1. **Создай новый репозиторий** на [github.com/new](https://github.com/new):
+   - имя репозитория: `tama` (или любое — тогда в `vite.config.ts` замени `base: '/tama/'` на `'/<имя-репо>/'`).
+   - не добавляй README, .gitignore и лицензию — они уже в проекте.
+
+2. **Привяжи репозиторий и отправь код** (подставь свой логин вместо `YOUR_USERNAME`):
+
+```bash
+cd c:\tama
+git remote add origin https://github.com/YOUR_USERNAME/tama.git
+git push -u origin main
+```
+
+3. **Включи GitHub Pages:**
+   - в репозитории: **Settings** → **Pages**;
+   - **Source**: **GitHub Actions** (не Branch).
+   - после первого пуша в **Actions** запустится workflow **Deploy to GitHub Pages**; когда он завершится, сайт будет доступен по адресу:
+   - `https://YOUR_USERNAME.github.io/tama/`
+
+Если назвал репозиторий по-другому — в **Settings → Pages** будет указан твой URL.
+
 ## Стек
 
 - React 19 + TypeScript
