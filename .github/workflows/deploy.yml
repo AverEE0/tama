@@ -27,13 +27,15 @@ jobs:
           publish_dir: ./dist
           force_orphan: true
 
-      # Кнопка меню бота в Telegram → открывает Mini App на GitHub Pages (нужен секрет TELEGRAM_BOT_TOKEN)
+      # Кнопка меню бота → открывает Web App (Tamaweb или эта страница). Секреты: TELEGRAM_BOT_TOKEN, при необходимости MINI_APP_URL (например https://averee0.github.io/tamaweb/)
       - name: Set Telegram bot menu button
         continue-on-error: true
         env:
           TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          APP_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/telegram-mini-app.html
+          MINI_APP_URL: ${{ secrets.MINI_APP_URL }}
+          FALLBACK_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/telegram-mini-app.html
         run: |
+          if [ -n "$MINI_APP_URL" ]; then APP_URL="$MINI_APP_URL"; else APP_URL="$FALLBACK_URL"; fi
           curl -sS -X POST "https://api.telegram.org/bot${TG_TOKEN}/setChatMenuButton" \
             -H "Content-Type: application/json" \
             -d "{\"menu_button\":{\"type\":\"web_app\",\"text\":\"Открыть\",\"web_app\":{\"url\":\"${APP_URL}\"}}}"

@@ -74,7 +74,8 @@ git push -u origin main
 **Привязка бота к Mini App:**
 
 **Вариант А — автоматически на GitHub:**  
-В репозитории: **Settings → Secrets and variables → Actions** → **New repository secret** → имя `TELEGRAM_BOT_TOKEN`, значение — токен бота из @BotFather. При каждом пуше в `main` сайт деплоится на GitHub Pages и у бота выставляется кнопка меню «Открыть» на твой Mini App.
+В репозитории: **Settings → Secrets and variables → Actions** → создай секрет `TELEGRAM_BOT_TOKEN` (токен из @BotFather).  
+Чтобы в Mini App открывался **Tamaweb** (полная игра), создай ещё секрет `MINI_APP_URL` со значением `https://averee0.github.io/tamaweb/` (или твой URL Tamaweb). Без `MINI_APP_URL` кнопка будет открывать страницу «только картинка» из этого репо.
 
 **Вариант Б — вручную (один раз):**
    ```bash
